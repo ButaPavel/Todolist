@@ -32,7 +32,6 @@ function App() {
         setFilter(value);
     }
 
-
     let taskForTodolist = tasks;
     if (filter === 'completed') {
         taskForTodolist = tasks.filter(el => el.isDone === true)
