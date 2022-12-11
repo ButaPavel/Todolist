@@ -16,7 +16,7 @@ export function  Tasks(props: PropsType) {
     return (
 
         <div>
-            <h3>{props.title}</h3>
+            <h3>{props.data.title}</h3>
 
         </div>
 
