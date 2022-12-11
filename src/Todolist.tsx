@@ -21,10 +21,7 @@ export function  Todolist(props: PropsType) {
 
         <div>
             <h3>{props.title}</h3>
-            <div>
-                <input/>
-                <button>+</button>
-            </div>
+
             <ul>
                 {
                  /*   props.tasks.map( (el) => {
