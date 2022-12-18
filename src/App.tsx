@@ -1,45 +1,59 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from "./Todolist";
+import {TasksType, Todolist} from "./Todolist";
+import {v1} from "uuid";
+
+export type  FilterValuesType = 'all' | 'completed' | 'active';
 
 function App() {
 
-
-    let [tasks, setTasks] = useState([
-        {id: 1, title: 'HTML&CSS', isDone: true},
-        {id: 2, title: 'JS', isDone: true},
-        {id: 3, title: 'React', isDone: false},
+    let [tasks, setTasks] = useState<Array<TasksType>>([
+        {id: v1(), title: 'CSS', isDone: true},
+        {id: v1(), title: 'JS', isDone: true},
+        {id: v1(), title: 'React', isDone: false},
+        {id: v1(), title: 'Redux', isDone: false},
     ])
-    let [filterTask, setFilterTask] = useState('All')
 
-
-    const removeTask = (id: number) => {
-        setTasks(tasks.filter((el) => el.id !== id))
+    function removeTasks(id: string) {
+        let filteredTasks = tasks.filter(el => el.id !== id)
+        setTasks(filteredTasks)
     }
 
-    const taskFilter = (filterValue: string) => {
-        setFilterTask(filterValue)
+    function addTask(title: string) {
+        let newTask = {
+            id: v1(),
+            title: title,
+            isDone: false
+        }
+        let newTasks = [newTask, ...tasks] // ... дистурикризация массива (поэлементно)
+        setTasks(newTasks)
     }
 
-    let durshlag = tasks
-    if (filterTask === 'Active') {
-        durshlag = tasks.filter((el) => el.isDone)
+    let [filter, setFilter] = useState<FilterValuesType>('all')
+
+    let taskForTodolist = tasks;
+
+    if (filter === 'completed') {
+        taskForTodolist = tasks.filter(el => el.isDone)
     }
-    if (filterTask === 'Completed') {
-        durshlag = tasks.filter((el) => el.isDone)
+    if (filter === 'active') {
+        taskForTodolist = tasks.filter(el => !el.isDone)
+    }
+
+    function changeFilter(value: FilterValuesType) {
+        setFilter(value);
     }
 
 
     return (
         <div className="App">
-            <Todolist
-                title='What to learn11111'
-                tasks={durshlag}
-                removeTask={removeTask}
-                taskFilter={taskFilter}
+            <Todolist title='What to learn'
+                      tasks={taskForTodolist}
+                      removeTasks={removeTasks}
+                      changeFilter={changeFilter}
+                      addTask={addTask}
             />
         </div>
-    );
+    )
 }
-
 export default App;
