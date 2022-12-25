@@ -28,7 +28,9 @@ export function  Todolist(props: PropsType) {
                      /  return <li><input type="checkbox" checked={el.isDone}/> <span>{el.title}</span></li>
                     })               можно и так*/
 
-                   props.tasks.map( el => <li><input type="checkbox" checked={el.isDone}/> <span>{el.title}</span>
+                   props.tasks.map( el => <li><input type="checkbox"
+                                                     onChange={}
+                                                     checked={el.isDone}/> <span>{el.title}</span>
                    <button onClick={ () => { props.removeTasks(el.id)} }>x</button>
                    </li>
                     )
